@@ -8,10 +8,10 @@ def parse_requirements(filename):
 
 
 setup(
-    name="higuard-sdk",
-    version="0.1.0",
+    name="higuard_sdk",
+    version="0.1.3",
     author="Derek Li",
-    author_email="derekli11204@example.com",
+    author_email="derekli11204@gmail.com",
     description="Python SDK for Error Dashboard",
     url="https://github.com/HiQ-Apps/error_dashboard_python",
     packages=find_packages(),
