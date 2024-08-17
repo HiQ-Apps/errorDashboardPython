@@ -9,7 +9,7 @@ def parse_requirements(filename):
 
 setup(
     name="higuard_sdk",
-    version="0.1.3",
+    version="0.1.4",
     author="Derek Li",
     author_email="derekli11204@gmail.com",
     description="Python SDK for Error Dashboard",
