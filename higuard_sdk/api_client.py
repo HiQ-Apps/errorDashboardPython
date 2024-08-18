@@ -6,9 +6,10 @@ from .environment import base_url
 from .configs import Configuration
 from .error_tracker import ErrorTracker
 
+
 class ErrorDashboardClient:
     _instance = None
-    
+
     def __init__(self, client_id: str, client_secret: str, configs: Optional[Configuration] = None):
         """
         Initializes ErrorDashboardclient with the given client ID, client secret, and configurations.
@@ -41,7 +42,7 @@ class ErrorDashboardClient:
         if cls._instance is None:
             cls._instance = cls(client_id, client_secret)
             return cls._instance
-        
+
     def _setup_periodic_cleanup(self):
         """
         Sets up a periodic cleanup that removes old timestamps from the error tracker based on the maximum age configuration.
@@ -60,7 +61,7 @@ class ErrorDashboardClient:
         self.error_tracker.clean_old_timestamps(now)
         self._setup_periodic_cleanup()
 
-    def send_error(self, error:Exception, message:str, tags: Optional[List[str]] = None, attach_user:Optional[str] = None):
+    def send_error(self, error: Exception, message: str, tags: Optional[List[str]] = None, attach_user: Optional[str] = None):
         """
         Sends an error to the dashboard server with message. 
         Checks for duplicate errors before sending the error, and retries based on configured attempts and delays.
@@ -70,14 +71,14 @@ class ErrorDashboardClient:
         :param tags: An optional list of tags to label the error.
         :param attach_user: An optional user identifier to attach to the error.
         """
-        
+
         current_time = int(time.time() * 1000)
 
         if self.error_tracker.duplicate_check(message, current_time):
             if self.configs.get_config("verbose"):
                 print("Duplicate error found, not sending to dashboard")
-            return 
-        
+            return
+
         error_stack = str(error)
         user_affected = attach_user if attach_user else "N/A"
         retry_attempts = self.configs.get_config("retry_attempts")
@@ -90,7 +91,8 @@ class ErrorDashboardClient:
             "tags": tags or [],
         }
 
-        is_success = self._send_to_dashboard(error_request_body, retry_attempts, retry_delay)
+        is_success = self._send_to_dashboard(
+            error_request_body, retry_attempts, retry_delay)
 
         if is_success and self.configs.get_config('verbose'):
             print("Data sent to dashboard")
@@ -108,7 +110,7 @@ class ErrorDashboardClient:
         :return: True if data was successfully sent, False otherwise.
         """
 
-        url = f"{self.base_url}/errors"
+        url = f"{self.base_url}"
 
         headers = {
             "Authorization": self.client_secret,
@@ -122,14 +124,15 @@ class ErrorDashboardClient:
                 if response.status_code == 200:
                     return True
                 else:
-                    print(f"Error sending data to dashboard: {response.status_code}")
+                    print(
+                        f"Error sending data to dashboard: {response.status_code}")
             except requests.exceptions.RequestException as e:
                 print(f"Error sending data to dashboard: {e}")
 
             if attempt < retry_attempts - 1:
                 time.sleep(retry_delay / 1000.0)
         return False
-    
+
     @classmethod
     def override_configs(cls, new_configs: Configuration):
         """
@@ -140,7 +143,8 @@ class ErrorDashboardClient:
         """
 
         if cls._instance is None:
-            raise Exception("ErrorDashboardClient not initialized, call initialize() first.")
-    
+            raise Exception(
+                "ErrorDashboardClient not initialized, call initialize() first.")
+
         for key, value in new_configs.items():
             cls._instance.configs.set_config(key, value)

@@ -1,1 +1,1 @@
-from .api_client import ErrorDashboardClient, send_error
+from .api_client import ErrorDashboardClient

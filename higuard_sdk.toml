@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+authors = [
+    { name = "Melissa Ho", email = "melissa.h717@outlook.com" },
+    { name = "Derek Li", email = "derekli11204@gmail.com" },
+]
+
+dependencies = [
+    "certifi>=2024.7.4",
+    "charset-normalizer>=3.3.2",
+    "idna>=3.7",
+    "requests>=2.32.3",
+    "ua-parser>=0.18.0",
+    "urllib3>=2.2.2",
+    "user-agents>=2.2.0",
+]
+
+name = "higuard-sdk"
+version = "0.1.7"
+description = "SDK for Higuard's Error Dashboard"
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["error", "dashboard", "SDK"]
+requires-python = ">=3.9"
+[project.urls]
+Homepage = "www.github.com/hiq-apps/error_dashboard_python"

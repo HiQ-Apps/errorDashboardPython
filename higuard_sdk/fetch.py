@@ -2,6 +2,7 @@ import requests
 from time import sleep
 from typing import Dict
 
+
 def error_dashboard_fetch(
         client_secret: str,
         client_id: str,
@@ -24,7 +25,7 @@ def error_dashboard_fetch(
     :param retry_attempts: Number of retry attempts.
     :param retry_delay: Delay between retry in milliseconds.
     :return: Returns a dictionary with either isError or isSuccess
-    
+
     """
 
     is_error = False
@@ -34,8 +35,8 @@ def error_dashboard_fetch(
         headers = {}
 
     headers.update({
-        "Authorization": client_secret,
         "Content-Type": "application/json",
+        "client_secret": client_secret,
         "client_id": client_id
     })
 
