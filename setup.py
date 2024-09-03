@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="higuard-sdk",
-    version="0.1.7",
+    version="0.1.8",
     author="Derek Li",
     author_email="derekli11204@gmail.com",
     description="Python SDK for Error Dashboard",
